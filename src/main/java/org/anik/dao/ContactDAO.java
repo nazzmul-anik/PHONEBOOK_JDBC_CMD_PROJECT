@@ -19,7 +19,7 @@ public class ContactDAO {
         boolean isSave = false;
 
         try{
-            String insertQuery = "insert into contact values(?, ?)";
+            String insertQuery = "insert into contact(name, phone) values(?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setString(1, contact.getName());
             preparedStatement.setString(2, contact.getPhone());
@@ -39,10 +39,11 @@ public class ContactDAO {
         boolean isEdit = false;
 
         try{
-            String updateQuery = "update contact set phone=? where id=?";
+            String updateQuery = "update contact set name=?, phone=? where id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setString(1, contact.getPhone());
-            preparedStatement.setInt(2, contact.getId());
+            preparedStatement.setString(1, contact.getName());
+            preparedStatement.setString(2, contact.getPhone());
+            preparedStatement.setInt(3, contact.getId());
 
             int update = preparedStatement.executeUpdate();
             if(update == 1){
